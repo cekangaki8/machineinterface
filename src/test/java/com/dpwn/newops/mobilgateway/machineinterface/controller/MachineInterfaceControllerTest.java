@@ -18,10 +18,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.Assert.*;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
@@ -69,8 +68,10 @@ public class MachineInterfaceControllerTest {
         mockRequest.setCountOfMailItems(1);
         mockRequest.setReceptacleNumber("9298090938909093890");
         mockRequest.setMailItems(new ArrayList<>());
+        mockRequest.setCloseTime(new Date());
         Mailitem mi = new Mailitem();
-        mi.setImpb("420898989209090909090809809");
+        //mi.setImpb("420898989209090909090809809");
+        mi.setTwoDimensionalBarcode("V2|234|1239898989090898099|12323");
         mockRequest.getMailItems().add(mi);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -81,10 +82,13 @@ public class MachineInterfaceControllerTest {
         .content(mapper.writeValueAsString(mockRequest)))
         .andExpect(status().isOk())
         .andDo(document("piece-to-bag-example",
-                links(),
                 requestFields(fieldWithPath("receptacleNumber").description("The receptacle number displayed on the sack"),
                         fieldWithPath("countOfMailItems").description("The total number of mailitems in the sack"),
-                        fieldWithPath("mailItems").description("The detail list of mailitems")
+                        fieldWithPath("mailItems").description("The detail list of mailitems"),
+                        fieldWithPath("closeTime").description("The time when the receptacle was scanned"),
+                        fieldWithPath("facilityCode").description("The facility code"),
+                        fieldWithPath("machineId").description("The machine identifier"),
+                        fieldWithPath("binNumber").description("The bin number")
                         )));
     }
 
