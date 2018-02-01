@@ -1,0 +1,8 @@
+= Piece to bag association
+
+This is interface definition that will mark receive receptacle of container information
+with it's respective mailitem data. The receptacle number or container number is expected to
+be a already defined in NewOps. The barcode for each mailitem is the 2-D barcode.
+
+
+operation::Piece-to-bag[]

@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
+		<snippetsDirectory>${project.build.directory}/snippets</snippetsDirectory>
 	</properties>
 
 	<dependencies>
@@ -66,7 +66,7 @@
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
 				<artifactId>asciidoctor-maven-plugin</artifactId>
-				<version>1.5.6</version>
+				<!--<version>1.5.6</version>-->
 				<executions>
 					<execution>
 						<id>generate-docs</id>
@@ -85,6 +85,13 @@
 						</configuration>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.restdocs</groupId>
+						<artifactId>spring-restdocs-asciidoctor</artifactId>
+						<version>2.0.0.RELEASE</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
